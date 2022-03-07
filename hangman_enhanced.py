@@ -19,6 +19,8 @@ def getLetter():
     msg = "Guess a letter: "
     char = input(msg)
 
+    char = char.lower()
+
     # .isalpha() check to make sure this is actually a character and not a number or symbol.
     if char.isalpha():
         return(char)
@@ -155,8 +157,15 @@ def easy_hangman(word):
     
     print("Welcome to Hangman")
 
+    guessed = []
+
     while wrong < len(stages) - 1:
         char = getLetter()
+        
+        if char in guessed:
+            print("You already guessed that letter, try again.")
+
+        guessed.append(char)  
 
         if char in rletters:
             indices = [i.start() for i in re.finditer(char, rletters)]
